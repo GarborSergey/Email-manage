@@ -9,6 +9,7 @@ from .forms import MailForm, RecipientForm, CompanyForm, PositionForm
 from .filters import RecipientFilter
 
 
+# ==================== CRUD-MODEL-RECIPIENT ====================
 class RecipientList(ListView):
     """List all Recipients"""
     model = Recipient
@@ -43,6 +44,8 @@ class RecipientDelete(DeleteView):
     model = Recipient
     template_name = 'emails/recipient_delete.html'
     success_url = reverse_lazy('emails:all-recipients')
+
+# ================== END CRUD-MODEL-RECIPIENT ===================
 
 
 class CompanyCreate(CreateView):
