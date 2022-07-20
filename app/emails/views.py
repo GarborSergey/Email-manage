@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.core.mail import send_mail
+from django.urls import reverse_lazy
 
 from django.conf import settings
 from .models import Recipient, Company, Position
@@ -20,6 +21,28 @@ class RecipientCreate(CreateView):
     form_class = RecipientForm
     model = Recipient
     template_name = 'emails/recipient_create.html'
+
+
+class RecipientDetail(DetailView):
+    """Detail view for selected recipient from DB"""
+    model = Recipient
+    context_object_name = 'recipient'
+    template_name = 'emails/recipient_detail.html'
+
+
+class RecipientUpdate(UpdateView):
+    """Edit selected recipients in DB"""
+    model = Recipient
+    form_class = RecipientForm
+    template_name = 'emails/recipient_edit.html'
+    success_url = reverse_lazy('emails:all-recipients')
+
+
+class RecipientDelete(DeleteView):
+    """Deleted selected recipient from DB"""  # ДОБАВИТЬ ВСПЛЫВАЮЩЕЕ ОКНО
+    model = Recipient
+    template_name = 'emails/recipient_delete.html'
+    success_url = reverse_lazy('emails:all-recipients')
 
 
 class CompanyCreate(CreateView):

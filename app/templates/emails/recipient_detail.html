@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}Recipients list{% endblock %}
+
+{% block content %}
+    <h1>Recipient</h1>
+    <hr>
+    <h3>{{ recipient.firs_name }} {{ recipient.last_name }}</h3>
+    <p>Email - {{ recipient.email }}</p>
+    <p>Company - {{ recipient.company.name }}</p>
+    <p>
+        Position
+        {% for position in recipient.position.all %}
+            {{ position.name }} /
+        {% endfor %}
+    </p>
+    <hr>
+    <a href="{% url 'emails:send_mail' recipient_id=recipient.id %}">Send mail</a>
+    <a href="{% url 'emails:edit-recipient' recipient.id %}">Edit</a>
+    <a href="{% url 'emails:delete-recipient' recipient.id %}">Delete</a>
+{% endblock %}
