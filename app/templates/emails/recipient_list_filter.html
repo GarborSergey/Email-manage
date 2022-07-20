@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}Recipients list{% endblock %}
+
+{% block content %}
+    <h1>All Recipients</h1>
+    <hr>
+    <form action="" method="get">
+      {{ filterset.form|crispy }}
+      <input type="submit" value="search">
+    </form>
+    {% for recipient in recipients %}
+        <h3>{{ recipient.first_name }}  {{ recipient.last_name }}</h3>
+        <p>Company - {{ recipient.company.name }} Position(s) - {% for position in recipient.position.all %} {{ position.name }}/ {% endfor%}</p>
+        <a href="{% url 'emails:send_mail' recipient_id=recipient.id %}">Send mail</a>
+        <hr>
+    {% endfor %}
+    <form action="{% url 'emails:send-mass-mail' %}" method="get">
+      <input type="submit" class="btn btn-success" value="Mass mail">
+    </form>
+
+{% endblock %}
