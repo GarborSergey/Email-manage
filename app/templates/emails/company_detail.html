@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ company.name }}{% endblock title %}
+
+{% block content %}
+  <h1>Company - "{{ company.name }}"</h1>
+  <a href="{% url 'emails:delete-company' company.id %}">delete company</a>
+  <a href="{% url 'emails:edit-company' company.id %}">edit company</a>
+  <h2>Recipients in {{ company.name }}</h2>
+  <hr>
+  {% for recipient in recipients %}
+    <h3>{{ recipient.first_name }}  {{ recipient.last_name }}</h3>
+    <p>Company - {{ recipient.company.name }} Position(s) - {% for position in recipient.position.all %} {{ position.name }}/ {% endfor%}</p>
+    <a href="{% url 'emails:detail-recipient' recipient.id %}">Info</a>
+    <a href="{% url 'emails:send_mail' recipient_id=recipient.id %}">Send mail</a>
+    <a href="{% url 'emails:edit-recipient' recipient.id %}">Edit</a>
+    <a href="{% url 'emails:delete-recipient' recipient.id %}">Delete</a>
+    <hr>
+  {% endfor %}
+
+
+{% endblock content %}

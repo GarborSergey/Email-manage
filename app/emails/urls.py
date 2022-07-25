@@ -16,7 +16,13 @@ urlpatterns = [
     path('delete-recipient/<int:pk>/', views.RecipientDelete.as_view(), name='delete-recipient'),
     # END CRUD-MODEL-RECIPIENT
 
+    # CRUD-MODEL-COMPANY
     path('add-new-company/', views.CompanyCreate.as_view(), name='new-company'),
+    path('detail-company/<int:pk>/', views.CompanyDetail.as_view(), name='detail-company'),
+    path('edit-company/<int:pk>/', views.CompanyUpdate.as_view(), name='edit-company'),
+    path('delete-company/<int:pk>/', views.CompanyDelete.as_view(), name='delete-company'),
+    # END CRUD-MODEL-COMPANY
+
     path('add-new-position/', views.PositionCreate.as_view(), name='new-position'),
     path('send-mass-mail/', views.send_mass_malling_for_all_recipient, name='send-mass-mail'),
     path('send-mail-to-company/', views.send_mass_mail_for_selected_company, name='send-mail-to-company'),

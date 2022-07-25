@@ -9,7 +9,7 @@
     <hr>
     <h3>{{ recipient.firs_name }} {{ recipient.last_name }}</h3>
     <p>Email - {{ recipient.email }}</p>
-    <p>Company - {{ recipient.company.name }}</p>
+    <p><a href="{% url 'emails:detail-company' recipient.company.id %}">Company - {{ recipient.company.name }}</a> </p>
     <p>
         Position
         {% for position in recipient.position.all %}

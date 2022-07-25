@@ -44,15 +44,46 @@ class RecipientDelete(DeleteView):
     model = Recipient
     template_name = 'emails/recipient_delete.html'
     success_url = reverse_lazy('emails:all-recipients')
-
 # ================== END CRUD-MODEL-RECIPIENT ===================
 
 
+# ==================== CRUD-MODEL-COMPANY ====================
 class CompanyCreate(CreateView):
     """Create new company in DB"""
     form_class = CompanyForm
     model = Company
     template_name = 'emails/company_create.html'
+
+
+class CompanyDetail(DetailView):
+    """Detail view for selected company in DB"""
+    model = Company
+    context_object_name = 'company'
+    template_name = 'emails/company_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        recipients = Recipient.objects.filter(company=context['company'])
+        context['recipients'] = recipients
+
+        return context
+
+
+class CompanyUpdate(UpdateView):
+    """Edit selected company in DB"""
+    model = Company
+    form_class = CompanyForm
+    template_name = 'emails/company_edit.html'
+    success_url = reverse_lazy('emails:all-recipients')
+
+
+class CompanyDelete(DeleteView):
+    """Deleted selected company from DB"""  # ДОБАВИТЬ ВСПЛЫВАЮЩЕЕ ОКНО
+    model = Company
+    template_name = 'emails/company_delete.html'
+    success_url = reverse_lazy('emails:all-recipients')
+# ================== END CRUD-MODEL-COMPANY ===================
 
 
 class PositionCreate(CreateView):
